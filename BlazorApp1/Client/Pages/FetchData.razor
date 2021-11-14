@@ -1,0 +1,28 @@
+﻿@page "/fetchdata"
+@using BlazorApp1.Shared
+@inject HttpClient Http
+
+<PageTitle>Test Data</PageTitle>
+
+<h1>Test Data</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+}
+
+@code {
+
+    private List<TestData>? testData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        testData = await Http.GetFromJsonAsync<List<TestData>>("testData");
+        //var res  = await Http.GetAsync("testData");
+        //var test = res.Content;
+
+        foreach(var data in testData)
+        {
+            Console.WriteLine(data.TestValue);
+        }
+    }
+}
